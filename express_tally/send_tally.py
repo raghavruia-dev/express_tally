@@ -81,8 +81,7 @@ def journal():
     payments = frappe.db.get_all(
         'Journal Entry',
         fields=[
-            'name', 'posting_date', 'docstatus', 'company',
-            'custom_branch', 'voucher_type', 'cheque_no', 'cheque_date', 'user_remark', 'amended_from'
+            'name', 'posting_date', 'docstatus', 'company', 'voucher_type', 'cheque_no', 'cheque_date', 'user_remark', 'amended_from'
             ],
         filters={ 
             'company': payload['company'],
