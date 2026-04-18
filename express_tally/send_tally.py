@@ -74,6 +74,38 @@ def supplier():
 
     return suppliers
 
+@frappe.whitelist()
+def journal():
+
+    payload = json.loads(frappe.request.data)
+    payments = frappe.db.get_all(
+        'Journal Entry',
+        fields=[
+            'name', 'posting_date', 'docstatus', 'company',
+            'custom_branch', 'voucher_type', 'cheque_no', 'cheque_date', 'user_remark', 'amended_from'
+            ],
+        filters={ 
+            'company': payload['company'],
+            'docstatus': ["in", ["1", "2"]],
+            'is_synced': ['!=', 'Yes'],
+            'is_opening': 'No'
+            },
+        limit=100
+        )
+    if payments:
+        for payment in payments:
+            payment_no = payment['name']
+
+            if payment_no:
+                pi_no = frappe.get_doc('Journal Entry', payment_no)
+
+                if pi_no:
+                    payment['treferences'] = pi_no
+                else:
+                    payment['treferences'] = {}
+
+    return payments
+
 
 @frappe.whitelist()
 def purchase():
