@@ -20,25 +20,14 @@ def customer_group():
                 tally_response.append(
                     {'name': group['customer_group_name'], 'tally_object': 'Group', 'message': 'Success'})
             except Exception as e:
+                frappe.log_error(f"Customer Group Error: {str(e)}", "Express Tally")
                 tally_response.append(
                     {'name': group['customer_group_name'], 'tally_object': 'Group', 'message': str(e)})
         else:
             tally_response.append(
                     {'name': group['customer_group_name'], 'tally_object': 'Group', 'message': 'Already Exists'})
-        # else:
-        #     try:
-        #         frappe.db.set_value(group['doctype'], group['customer_group_name'], {
-        #             "customer_group_name": group['customer_group_name'],
-        #             "is_group": group['is_group'],
-        #             "parent_customer_group": group['parent_customer_group'],
-        #         })
 
-        #         tally_response.append(
-        #             {'name': group['customer_group_name'], 'tally_object': 'Group', 'message': 'Success'})
-        #     except Exception as e:
-        #         tally_response.append(
-        #             {'name': group['customer_group_name'], 'tally_object': 'Group', 'message': str(e)})
-
+    frappe.db.commit()
     return {"status": True, 'data': tally_response}
 
 
@@ -59,25 +48,14 @@ def supplier_group():
                 tally_response.append(
                     {'name': group['supplier_group_name'], 'tally_object': 'Group', 'message': 'Success'})
             except Exception as e:
+                frappe.log_error(f"Supplier Group Error: {str(e)}", "Express Tally")
                 tally_response.append(
                     {'name': group['supplier_group_name'], 'tally_object': 'Group', 'message': str(e)})
         else:
             tally_response.append(
                     {'name': group['supplier_group_name'], 'tally_object': 'Group', 'message': 'Already Exists'})
-        # else:
-        #     try:
-        #         frappe.db.set_value(group['doctype'], group['supplier_group_name'], {
-        #             "supplier_group_name": group['suppiler_group_name'],
-        #             "is_group": group['is_group'],
-        #             "parent_supplier_group": group['parent_supplier_group'],
-        #         })
 
-        #         tally_response.append(
-        #             {'name': group['supplier_group_name'], 'tally_object': 'Group', 'message': 'Success'})
-        #     except Exception as e:
-        #         tally_response.append(
-        #             {'name': group['supplier_group_name'], 'tally_object': 'Group', 'message': str(e)})
-
+    frappe.db.commit()
     return {"status": True, 'data': tally_response}
 
 
@@ -98,25 +76,14 @@ def item_group():
                 tally_response.append(
                     {'name': stockgroup['item_group_name'], 'tally_object': 'Stock Group', 'message': 'Success'})
             except Exception as e:
+                frappe.log_error(f"Item Group Error: {str(e)}", "Express Tally")
                 tally_response.append(
                     {'name': stockgroup['item_group_name'], 'tally_object': 'Stock Group', 'message': str(e)})
         else:
             tally_response.append(
                     {'name': stockgroup['item_group_name'], 'tally_object': 'Stock Group', 'message': 'Already Exists'})
-        # else:
-        #     try:
-        #         frappe.db.set_value(stockgroup['doctype'], stockgroup['item_group_name'], {
-        #             "item_group_name": stockgroup['item_group_name'],
-        #             "is_group": stockgroup['is_group'],
-        #             "parent_item_group": stockgroup['parent_item_group'],
-        #         })
 
-        #         tally_response.append(
-        #             {'name': stockgroup['item_group_name'], 'tally_object': 'Stock Group', 'message': 'Success'})
-        #     except Exception as e:
-        #         tally_response.append(
-        #             {'name': stockgroup['item_group_name'], 'tally_object': 'Stock Group', 'message': str(e)})
-
+    frappe.db.commit()
     return {"status": True, 'data': tally_response}
 
 
@@ -137,26 +104,14 @@ def warehouse():
                 tally_response.append(
                     {'name': warehouse['warehouse_name'], 'tally_object': 'Godown', 'message': 'Success'})
             except Exception as e:
+                frappe.log_error(f"Warehouse Error: {str(e)}", "Express Tally")
                 tally_response.append(
-                    {'name': warehouse['item_group_name'], 'tally_object': 'Godown', 'message': str(e)})
+                    {'name': warehouse['warehouse_name'], 'tally_object': 'Godown', 'message': str(e)})
         else:
             tally_response.append(
                     {'name': warehouse['warehouse_name'], 'tally_object': 'Godown', 'message': 'Already Exists'})
-        # else:
-        #     try:
-        #         frappe.db.set_value(warehouse['doctype'], warehouse['warehouse_name'], {
-        #             "warehouse_name": warehouse['warehouse_name'],
-        #             "is_group": warehouse['is_group'],
-        #             "parent_warehouse": warehouse['parent_warehouse'],
-        #             "company": warehouse['company']
-        #         })
 
-        #         tally_response.append(
-        #             {'name': warehouse['warehouse_name'], 'tally_object': 'Godown', 'message': 'Success'})
-        #     except Exception as e:
-        #         tally_response.append(
-        #             {'name': warehouse['warehouse_name'], 'tally_object': 'Godown', 'message': str(e)})
-
+    frappe.db.commit()
     return {"status": True, 'data': tally_response}
 
 
@@ -184,33 +139,14 @@ def customer():
                 tally_response.append(
                     {'name': customer['customer_code'], 'tally_object': 'Ledger', 'message': 'Success'})
             except Exception as e:
+                frappe.log_error(f"Customer {customer.get('customer_code', 'Unknown')}: {str(e)}", "Express Tally")
                 tally_response.append(
                     {'name': customer['customer_code'], 'tally_object': 'Ledger', 'message': str(e)})
         else:
             tally_response.append(
                     {'name': customer['customer_code'], 'tally_object': 'Ledger', 'message': 'Already Exists'})
 
-        # else:
-        #     try:
-        #         frappe.db.set_value(customer['doctype'], customer['customer_name'], {
-        #             "customer_name": customer['customer_name'],
-        #             "customer_type": customer['customer_type'],
-        #             "customer_group": customer['customer_group'],
-        #             "territory": customer['territory'],
-        #             "tax_category": customer['tax_category'],
-        #             "so_required": customer['so_required'],
-        #             "dn_required": customer['dn_required'],
-        #             "default_currency": customer['default_currency'],
-        #             "default_price_list": customer['default_price_list'],
-        #             "item_group_limit": customer['item_group_limit'] if 'item_group_limit' in customer else ""
-        #         })
-
-        #         tally_response.append(
-        #             {'name': customer['customer_name'], 'tally_object': 'Ledger', 'message': 'Success'})
-        #     except Exception as e:
-        #         tally_response.append(
-        #             {'name': customer['customer_name'], 'tally_object': 'Ledger', 'message': str(e)})
-
+    frappe.db.commit()
     return {"status": True, 'data': tally_response}
 
 
@@ -283,9 +219,11 @@ def customer_opening():
                 tally_response.append(
                         {'name': bill['customer'], 'tally_object': 'Ledger', 'message': 'Success'})
             except Exception as e:
+                frappe.log_error(f"Customer Opening Error for {bill.get('customer', 'Unknown')}: {str(e)}", "Express Tally")
                 tally_response.append(
                         {'name': bill['customer'], 'tally_object': 'Ledger', 'message': str(e)})
 
+    frappe.db.commit()
     return {"status": True, 'data': tally_response}    
 
 @frappe.whitelist()
@@ -355,9 +293,11 @@ def supplier_opening():
                 tally_response.append(
                         {'name': bill['supplier'], 'tally_object': 'Ledger', 'message': 'Success'})
             except Exception as e:
+                frappe.log_error(f"Supplier Opening Error for {bill.get('supplier', 'Unknown')}: {str(e)}", "Express Tally")
                 tally_response.append(
                         {'name': bill['supplier'], 'tally_object': 'Ledger', 'message': str(e)})
 
+    frappe.db.commit()
     return {"status": True, 'data': tally_response}    
 
 
@@ -384,29 +324,14 @@ def supplier():
                 tally_response.append(
                     {'name': supplier['customer_code'], 'tally_object': 'Ledger', 'message': 'Success'})
             except Exception as e:
+                frappe.log_error(f"Supplier {supplier.get('customer_code', 'Unknown')}: {str(e)}", "Express Tally")
                 tally_response.append(
                     {'name': supplier['customer_code'], 'tally_object': 'Ledger', 'message': str(e)})
         else:
             tally_response.append(
                     {'name': supplier['customer_code'], 'tally_object': 'Ledger', 'message': 'Already Exists'})
-        # else:
-        #     try:
-        #         frappe.db.set_value(supplier['doctype'], supplier['supplier_name'], {
-        #             "supplier_name": supplier['supplier_name'],
-        #             "supplier_type": supplier['supplier_type'],
-        #             "supplier_group": supplier['supplier_group'],
-        #             "territory": supplier['territory'],
-        #             "tax_category": supplier['tax_category'],
-        #             "default_currency": supplier['default_currency'],
-        #             "default_price_list": supplier['default_price_list']
-        #         })
 
-        #         tally_response.append(
-        #             {'name': supplier['supplier_name'], 'tally_object': 'Ledger', 'message': 'Success'})
-        #     except Exception as e:
-        #         tally_response.append(
-        #             {'name': supplier['supplier_name'], 'tally_object': 'Ledger', 'message': str(e)})
-
+    frappe.db.commit()
     return {"status": True, 'data': tally_response}    
 
 @frappe.whitelist()
@@ -428,12 +353,14 @@ def account():
                 tally_response.append(
                     {'name': account['account_name'], 'tally_object': 'Ledger', 'message': 'Success'})
             except Exception as e:
+                frappe.log_error(f"Account {account.get('account_name', 'Unknown')}: {str(e)}", "Express Tally")
                 tally_response.append(
                     {'name': account['account_name'], 'tally_object': 'Ledger', 'message': str(e)})
         else:
             tally_response.append(
                     {'name': account['account_name'], 'tally_object': 'Ledger', 'message': 'Already Exists'})
         
+    frappe.db.commit()
     return {"status": True, 'data': tally_response}    
 
 
@@ -453,29 +380,30 @@ def create_account(customer):
             "account_type": account_type
         }
 
-        # print(req)
         doc = frappe.get_doc(req)
         doc.insert()
-
-        # return {'name': customer['customer_name'], 'tally_object': 'Ledger_Contact', 'message': 'Success'}
-        print('Success- Account')
+        frappe.log_error(f"Account created for {cus_name}", "Express Tally", alert=0)
     except Exception as e:
-        print(str(e))
-        # return {'name': customer['customer_name'], 'tally_object': 'Ledger_Contact', 'message': str(e)}
+        frappe.log_error(f"Account creation error: {str(e)}", "Express Tally")
 
 
 def create_contact(customer):
     try:
+        # Check if required fields exist
+        if 'ledgercontact' not in customer:
+            frappe.log_error(f"Missing 'ledgercontact' field for customer: {customer.get('customer_name', 'Unknown')}", "Express Tally")
+            return
+        
         doctype = customer['doctype']
         cus_name = customer['customer_code'] if doctype == 'Customer' else customer['supplier_name']
 
         req = {
             "name": customer['ledgercontact'],
             "first_name": customer['ledgercontact'],
-            "email_id": customer['email']  if 'email' in customer else "",
+            "email_id": customer.get('email', ""),
             "status": "Passive",
-            "phone": customer['ledgermobile'] if 'ledgermobile' in customer else "",
-            "mobile_no": customer['ledgermobile'] if 'ledgermobile' in customer else "",
+            "phone": customer.get('ledgermobile', ""),
+            "mobile_no": customer.get('ledgermobile', ""),
             "is_primary_contact": 1,
             "is_billing_contact": 1,
             "doctype": "Contact",
@@ -484,7 +412,7 @@ def create_contact(customer):
                     "parent": customer['ledgercontact'],
                     "parentfield": "email_ids",
                     "parenttype": "Contact",
-                    "email_id": customer['email'] if 'email' in customer else "a@b.com",
+                    "email_id": customer.get('email', "a@b.com"),
                     "is_primary": 1,
                     "doctype": "Contact Email"
                 }
@@ -494,7 +422,7 @@ def create_contact(customer):
                     "parent": customer['ledgercontact'],
                     "parentfield": "phone_nos",
                     "parenttype": "Contact",
-                    "phone": customer['ledgermobile'] if 'ledgermobile' in customer else "9999999999",
+                    "phone": customer.get('ledgermobile', "9999999999"),
                     "is_primary_phone": 1,
                     "is_primary_mobile_no": 1,
                     "doctype": "Contact Phone"
@@ -513,15 +441,11 @@ def create_contact(customer):
             ],
         }
 
-        # print(req)
         doc = frappe.get_doc(req)
         doc.insert()
-
-        # return {'name': customer['customer_name'], 'tally_object': 'Ledger_Contact', 'message': 'Success'}
-        print('Success- Contact')
+        frappe.log_error(f"Contact created for {cus_name}", "Express Tally", alert=0)
     except Exception as e:
-        print(str(e))
-        # return {'name': customer['customer_name'], 'tally_object': 'Ledger_Contact', 'message': str(e)}
+        frappe.log_error(f"Contact creation error: {str(e)}", "Express Tally")
 
 
 def create_address(customer):
@@ -592,12 +516,14 @@ def uom():
                 tally_response.append(
                     {'name': uom['uom_name'], 'tally_object': 'Unit', 'message': 'Success'})
             except Exception as e:
+                frappe.log_error(f"UOM {uom.get('uom_name', 'Unknown')}: {str(e)}", "Express Tally")
                 tally_response.append(
                     {'name': uom['uom_name'], 'tally_object': 'Unit', 'message': str(e)})
         else:
             tally_response.append(
                     {'name': uom['uom_name'], 'tally_object': 'Unit', 'message': 'Already Exists'})
 
+    frappe.db.commit()
     return {"status": True, 'data': tally_response}
 
 
@@ -620,24 +546,14 @@ def item():
                 tally_response.append(
                     {'name': item['item_name'], 'tally_object': 'Stock Item', 'message': 'Success'})
             except Exception as e:
+                frappe.log_error(f"Item {item.get('item_name', 'Unknown')}: {str(e)}", "Express Tally")
                 tally_response.append(
                     {'name': item['item_name'], 'tally_object': 'Stock Item', 'message': str(e)})
         else:
             tally_response.append(
                     {'name': item['item_name'], 'tally_object': 'Stock Item', 'message': 'Already Exists'})
-        # else:
-        #     try:
-        #         frappe.db.set_value(item['doctype'], item['item_name'], {
-        #             "item_group_name": item['item_group_name'],
-        #             "is_group": item['is_group']
-        #         })
 
-        #         tally_response.append(
-        #             {'name': item['item_name'], 'tally_object': 'Stock Item', 'message': 'Success'})
-        #     except Exception as e:
-        #         tally_response.append(
-        #             {'name': item['item_name'], 'tally_object': 'Stock ITem', 'message': str(e)})
-
+    frappe.db.commit()
     return {"status": True, 'data': tally_response}
 
 def create_hsn(item):
@@ -671,11 +587,12 @@ def voucher():
                 tally_response.append(
                     {'name': sale['tally_masterid'], 'docname': doc.name, 'tally_object': 'voucher', 'message': 'Success'})
             except Exception as e:
+                frappe.log_error(f"Voucher {sale.get('tally_masterid', 'Unknown')}: {str(e)}", "Express Tally")
                 tally_response.append(
                     {'name': sale['tally_masterid'], 'tally_object': 'voucher', 'message': str(e)})
         else:
             tally_response.append(
                     {'name': sale['tally_masterid'], 'docname': doc.name, 'tally_object': 'voucher', 'message': 'Already Exists'})
 
+    frappe.db.commit()
     return {"status": True, 'data': tally_response}
-    
